@@ -1,12 +1,13 @@
+<!--推荐官和家乡-->
 <template>
     <div>
-       this is home
+        RecommendHometown
     </div>
 </template>
 
 <script>
 export default {
-   
+
 }
 </script>
 

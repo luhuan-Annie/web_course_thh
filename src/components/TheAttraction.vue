@@ -1,12 +1,13 @@
+<!--旅游景点-->
 <template>
-    <div>
-       this is home
-    </div>
+  <div>
+      <h1>Tourist Attraction</h1>
+  </div>
 </template>
 
 <script>
 export default {
-   
+
 }
 </script>
 

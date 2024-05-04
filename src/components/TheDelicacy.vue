@@ -1,12 +1,13 @@
+<!--美食/农产品-->
 <template>
     <div>
-       this is home
+        DelicacyProducts
     </div>
 </template>
 
 <script>
 export default {
-   
+
 }
 </script>
 
