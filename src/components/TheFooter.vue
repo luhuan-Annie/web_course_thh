@@ -1,6 +1,12 @@
 <template>
-  <footer class="footer">
-    <h1>联系我们</h1>
+  <footer 
+    class="footer" 
+    :style="{
+        'height': isContact ? 'calc(100vh - 85px)' : 'auto',
+        'justifyContent': isContact ? 'center' : 'space-around'
+        }"
+>
+    <h1 v-show="!isContact">联系我们</h1>
     <div class="contact">
         <form action="#">
             <input type="text" placeholder="姓名">
@@ -16,7 +22,7 @@
             <li>邮箱:123456@163.com</li>
         </ul>
     </div>
-    <p>
+    <p v-show="!isContact">
         Copyright © 2024.XX学校.教学示例
     </p>
   </footer>
@@ -24,7 +30,21 @@
 
 <script>
 export default {
+    data: () => {
+        return {
+            isContact: false
+        }
+    },
+    watch: {
+        $route(to) {
+            if(to.name === 'contact') {
+                this.isContact = true
+                return
+            }
 
+            this.isContact = false
+        }
+    }
 }
 </script>
 
@@ -37,7 +57,7 @@ ul li{
     flex-direction: column;
     width: 100%;
     color: #fff;
-    padding: 20px 0px 0px 0px;
+    padding: 20px 0px 10px 0px;
     background-color: #252525;
     h1{
         padding: 0 0 20px 100px;
