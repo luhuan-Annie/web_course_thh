@@ -3,11 +3,18 @@
     class="footer" 
     :style="{
         'height': isContact ? 'calc(100vh - 85px)' : 'auto',
-        'justifyContent': isContact ? 'center' : 'space-around'
+        'justifyContent': isContact ? 'center' : 'space-around',
+        'padding-top': !(isHome && isContact) ? '10px' : '20px'
         }"
->
-    <h1 v-show="!isContact">联系我们</h1>
-    <div class="contact">
+    >
+    <h1 v-show="isHome">联系我们</h1>
+    <div 
+        v-show="isHome || isContact"
+        class="contact"
+        :style="{
+            'flex': isContact ? '1' : 'none',
+        }"
+    >
         <form action="#">
             <input type="text" placeholder="姓名">
             <input type="number" placeholder="电话">
@@ -22,7 +29,7 @@
             <li>邮箱:123456@163.com</li>
         </ul>
     </div>
-    <p v-show="!isContact">
+    <p :style="{'padding': isHome || isContact ? '20px 0 10px 0' : '10px 0'}">
         Copyright © 2024.XX学校.教学示例
     </p>
   </footer>
@@ -32,17 +39,29 @@
 export default {
     data: () => {
         return {
+            isHome: true,
             isContact: false
         }
     },
     watch: {
-        $route(to) {
-            if(to.name === 'contact') {
-                this.isContact = true
-                return
-            }
-
-            this.isContact = false
+        $route: {
+            handler(to) {
+                switch(to.name) {
+                    case 'home':
+                        this.isHome = true
+                        this.isContact = false
+                        break
+                    case 'contact':
+                        this.isContact = true
+                        this.isHome = false
+                        break
+                    default:
+                        this.isHome = false
+                        this.isContact = false
+                        break
+                }
+            },
+            immediate: true
         }
     }
 }
@@ -59,6 +78,7 @@ ul li{
     color: #fff;
     padding: 20px 0px 10px 0px;
     background-color: #252525;
+    box-sizing: border-box;
     h1{
         padding: 0 0 20px 100px;
     }
@@ -121,7 +141,6 @@ ul li{
     }
     p{
         text-align: center;
-        padding: 20px 0 10px 0;
     }
 }
 </style>
